@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href= "boss.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://neo4j-contrib.github.io/developer-resources/language-guides/assets/css/main.css">
+        <title>DataViz</title>
+        <style type="text/css">
+            #viz {
+                width: 1300px;
+                height: 750px;
+                }
+        </style>
+        <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+    </head>
+    <div class="row row-no-gutters">
+        <div class="col-sm-7">
+                 <div class="panel panel-primary">
+                     <div class="panel-heading" id="title">Details</div>
+                      <div class="col-sm-7 col-sm-8">
+                          <ul>
+                              <li>Yellow is the Student Number</li>
+                              <li>Green represent chance of admit</li>
+                              <li>Blue represent University Rating</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+
+        var viz;
+
+        function draw() {
+            var config ={
+                container_id: "viz",
+                server_url: "bolt://localhost:7687",
+                server_user: "neo4j",
+                server_password: "password",
+                labels: {
+                    "GRE_Score":{
+                        "caption" :"score",
+                     },
+                     "Student": {
+                        "caption" :"name",
+                        "color": "yellow",
+                     },
+                     "Chance_of_Admit":{
+                        "caption" :"chance",
+                        "color": "green",
+                     },
+                     "University_Rating":{
+                        "caption" :"rating",
+                        "color": "blue",
+                     }
+                },
+                relationships: {
+                },
+                initial_cypher: "Match p=(:GRE_Score)-[:gre_score]-(:Student)-[:probability]-(:Chance_of_Admit)-[:chance_of_admit]-(c:University_Rating) Where c.rating=3 Return p Limit 100"
+                };
+            var viz =  new NeoVis.default(config);
+            viz.render();
+            }
+    </script>
+    <body onload="draw()">
+        <div id="viz"></div>
+    </body>
+    <footer>
+        <style>
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Style the active class, and buttons on mouse-over */
+.active, .btn:hover {
+  background-color: #666;
+  color: white;
+}
+
+</style>
+        <h5>University_Rating</h5>
+        <div id="myDIV">
+            <a href=""><button class="btn">1</button></a>
+            <a href="2.html"><button class="btn">2</button></a>
+            <a href="3.html"><button class="btn active">3</button></a>
+            <a href="4.html"><button class="btn">4</button></a>
+            <a href="5.html"><button class="btn">5</button></a>
+
+    </div>
+
+    <script>
+    var header = document.getElementById("myDIV");
+    var btns = header.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+    </script>
+    </footer>
+</html>
