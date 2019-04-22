@@ -2,11 +2,8 @@ import os
 from json import dumps
 from flask import Flask, render_template, g, Response,request, flash
 from neo4jrestclient.client import GraphDatabase
-from form import information
-
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '1ab9de06181bac4b9570dcf327d7ce32'
 @app.route('/')
 def get_ori():
     return render_template("index.html")
