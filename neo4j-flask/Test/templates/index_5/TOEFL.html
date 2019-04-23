@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href= "boss.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://neo4j-contrib.github.io/developer-resources/language-guides/assets/css/main.css">
+        <title>DataViz</title>
+        <style type="text/css">
+            #viz {
+                width: 1300px;
+                height: 750px;
+                }
+        </style>
+        <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            body {
+             font-family: "Lato", sans-serif;
+            }
+
+            /* Fixed sidenav, full height */
+            .sidenav {
+             height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+            }
+
+            /* Style the sidenav links and the dropdown button */
+            .sidenav a, .dropdown-btn {
+             padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 15px;
+            color: #818181;
+            display: block;
+             border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            }
+
+            /* On mouse-over */
+            .sidenav a:hover, .dropdown-btn:hover {
+            color: #f1f1f1;
+            }
+
+            /* Main content */
+            .main {
+            margin-left: 200px; /* Same as the width of the sidenav */
+            font-size: 15px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+            }
+
+            /* Add an active class to the active dropdown button */
+            .active {
+            background-color: green;
+            color: white;
+            }
+
+            /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+            .dropdown-container {
+            display: none;
+            background-color: #262626;
+            padding-left: 8px;
+            }
+
+            /* Optional: Style the caret down icon */
+            .fa-caret-down {
+            float: right;
+            padding-right: 8px;
+            }
+
+            /* Some media queries for responsiveness */
+            @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+            }
+            </style>
+    </head>
+        <div class="row row-no-gutters">
+            <div class="col-sm-9">
+                 <div class="panel panel-primary">
+                     <div class="panel-heading" id="title">Details
+                     </div>
+                      <div class="col-sm-9 col-sm-8">
+                          <ul>
+                              <li>The Diagram of Student who apply to University Rating 4</li>
+                              <li>The Diagram Shows Student and their TOEFL Score (out of 120 points)</li>
+                          </ul>
+                      </div>
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript">
+
+        var viz;
+
+        function draw() {
+            var config ={
+                container_id: "viz",
+                server_url: "bolt://localhost:7687",
+                server_user: "neo4j",
+                server_password: "password",
+                labels: {
+                    "GRE_Score":{
+                        "caption" :"score",
+                     },
+                     "Student": {
+                        "caption" :"name",
+                        "color": "yellow",
+                     },
+                     "Chance_of_Admit":{
+                        "caption" :"chance",
+                        "color": "green",
+                     },
+                     "University_Rating":{
+                        "caption" :"rating",
+                        "color": "blue",
+                     }
+                },
+                relationships: {
+                },
+                initial_cypher: "Match p=(:TOEFL_Score)-[:toefl_score]-(:Student)-[:probability]-(:Chance_of_Admit)-[:chance_of_admit]-(c:University_Rating) Where c.rating= 5 Return p Limit 80"
+                };
+            var viz =  new NeoVis.default(config);
+            viz.render();
+            }
+    </script>
+    <body>
+    <div class="sidenav">
+        <a href="/index_5.html">Index</a>
+        <a href="GRE.html">GreScore</a>
+        <a href="TOEFL.html">TOEFL</a>
+        <a href="CGPA.html">CGPA</a>
+        <a href="Research.html">Research</a>
+        <a href="SOP.html">SOP</a>
+        <a href="LOR.html">LOR</a>
+        <a href="/information.html">Calculator</a>
+    </div>
+    <body class="main" onload="draw()">
+        <div id="viz"></div>
+        </body>
+    </body>
+    <footer>
+        <style>
+    /* Style the buttons */
+        .btn {
+        border: none;
+        outline: none;
+        padding: 10px 16px;
+        background-color: #f1f1f1;
+        cursor: pointer;
+        font-size: 18px;
+        }
+
+    /* Style the active class, and buttons on mouse-over */
+    .active, .btn:hover {
+    background-color: #666;
+    color: white;
+    }
+
+</style>
+        <h5>University_Rating</h5>
+        <div id="myDIV">
+            <a href="/index.html"><button class="btn">1</button></a>
+            <a href="/index_2.html"><button class="btn">2</button></a>
+            <a href="/index_3.html"><button class="btn">3</button></a>
+            <a href="/index_4.html"><button class="btn">4</button></a>
+            <a href="/index_5.html"><button class="btn active">5</button></a>
+    </div>
+    <script>
+    var header = document.getElementById("myDIV");
+    var btns = header.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+    </script>
+    </footer>
+</html>

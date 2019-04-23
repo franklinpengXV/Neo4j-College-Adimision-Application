@@ -1,0 +1,136 @@
+{% extends "layout.html" %} {% block content %}
+<div class="Admission info">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-1">User Information</legend>
+
+			<div class="form-group">
+				{{ form.studentName.label(class="form-control-label") }} 
+					{% if form.studentName.errors %}
+						{{form.studentName(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.studentName.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.studentName(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">
+				{{ form.toeflScore.label(class="form-control-label") }} 
+					{% if form.toeflScore.errors %}
+						{{form.toeflScore(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.toeflScore.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.toeflScore(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">
+			{{ form.sopScore.label(class="form-control-label") }} 
+					{% if form.sopScore.errors %}
+						{{form.sopScore(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.sopScore.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.sopScore(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">
+				{{ form.lorScore.label(class="form-control-label") }} 
+					{% if form.lorScore.errors %}
+						{{form.lorScore(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.lorScore.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.lorScore(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">
+				{{ form.cgpaScore.label(class="form-control-label") }} 
+					{% if form.cgpaScore.errors %}
+						{{form.cgpaScore(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.cgpaScore.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.cgpaScore(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">
+				{{ form.greScore.label(class="form-control-label") }} 
+					{% if form.greScore.errors %}
+						{{form.greScore(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.greScore.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.greScore(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">
+			{{ form.research.label(class="form-control-label") }} 
+					{% if form.research.errors %}
+						{{form.research(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.research.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.research(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">
+				{{ form.uniRating.label(class="form-control-label") }} 
+					{% if form.uniRating.errors %}
+						{{form.uniRating(class="form-control form-control-sm is-invalid") }} 
+						<div class="invalid-feedback">
+							{% for error in form.uniRating.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.uniRating(class="form-control form-control-sm") }}
+					{% endif %} 
+			</div>
+
+
+			<div class="form-group">{{ form.calculate(class="btn btn-outline-info") }}</div>
+
+		</fieldset>
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-1">Admission Chances</legend>
+		</fieldset>
+	</form>
+</div>
+{% endblock %}
