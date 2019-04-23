@@ -1,12 +1,71 @@
 import os
 from json import dumps
-from flask import Flask, render_template, g, Response,request, flash
-from neo4jrestclient.client import GraphDatabase
+from flask import Flask, render_template, g, Response, request, flash
+from .form import information
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '1ab9de06181bac4b9570dcf327d7ce32'
+
+
+def calculate(toefl, sop, lor, cgpa, gre, research, multiplier):
+    admissionStats = [1, -1.105280744, 0.000781828, -0.010980987, 0.051714645, 0.124596912, 0.001658085656,
+                      -0.004544239,
+                      2, -1.32206708, 0.004320261, -0.01200476, 0.014918234, 0.13834353, 0.001128329046, 0.01044434,
+                      3, -1.14118044, 0.000894195, -0.00616229, 0.018245858, 0.124920362, 0.001965994538, 0.02835693,
+                      4, -1.29195377, 0.00582672, 0.028679426, 0.010749526, 0.085650437, 0.001503631127, 0.03807761,
+                      5, -0.74113308, 0.003677915, 0.028972354, 0.003952278, 0.070261534, 0.001044124364, 0.073593]
+
+    interceptCoeff = admissionStats[(multiplier - 1) * 8 + 1]
+    toeflCoeff = admissionStats[(multiplier - 1) * 8 + 2]
+    sopCoeff = admissionStats[(multiplier - 1) * 8 + 3]
+    lorCoeff = admissionStats[(multiplier - 1) * 8 + 4]
+    cgpaCoeff = admissionStats[(multiplier - 1) * 8 + 5]
+    greCoeff = admissionStats[(multiplier - 1) * 8 + 6]
+    researchCoeff = admissionStats[(multiplier - 1) * 8 + 7]
+
+    results = (interceptCoeff + (toeflCoeff * toefl) + (sopCoeff * sop)
+               + (lorCoeff * lor) + (cgpaCoeff * cgpa) + (greCoeff * gre)
+               + (researchCoeff * research))
+
+    finalResults = round(results * 100, 2)
+
+    return finalResults
+
 @app.route('/')
 def get_ori():
     return render_template("index.html")
+
+
+@app.route("/information.html", methods=['GET', 'POST'])
+def admission():
+    form = information()
+
+    if form.validate_on_submit():
+        toefl = form.data['toeflScore']
+        sop = form.data['sopScore']
+        lor = form.data['lorScore']
+        cgpa = form.data['cgpaScore']
+        gre = form.data['greScore']
+        research = form.data['research']
+        uniRating = form.data['uniRating']
+
+        if (research.upper() == "YES"):
+            research = 1.0
+        elif (research.upper() == "NO"):
+            research = 0.0
+
+        results = calculate(toefl, sop, lor, cgpa, gre, research, uniRating)
+
+        finalResults = str(results)
+
+        if (results < 0):
+            flash(f'Your chances are 0%', 'success')
+        elif (results > 100):
+            flash(f'Your chances are 100%', 'success')
+        else:
+            flash(f'Your chances are: ' + finalResults + '%', 'success')
+
+    return render_template('information.html', form=form)
 
 @app.route('/index.html')
 def get_index():
