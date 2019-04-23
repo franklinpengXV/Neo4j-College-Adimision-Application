@@ -1,0 +1,27 @@
+READ ME
+
+INCLUDED:
+AdmissionPrediction.py - python code
+admission.txt - modified admissions files. 
+Use Video.mp4 - A video on how to use the program. 
+
+NOTES:
+This is version 1. It is very inefficent.
+
+Please make sure to have neo4jrestclient installed 
+"pip install neo4jrestclient"
+
+Please delete/ reset database when attempting to create all the relationships.
+relationships are created on a set creation basis. So everytime a student and his/ her score nodes are created, 
+they are related togheter at the same time. 
+
+After selecting "Yes" to create database, use alt tab to find the file search windows. I don't know why it doesn't
+pop up in front of the console window. It's always hidden in the background. 
+
+After uploading everything to the neo4j servers, it will take a couple of minutes for all that data to be organized. 
+During this time, it is common for the browser or the app browser to be very laggy and unresponsive. 
+
+The default number of nodes is 300. This will lead to unlinked pairs as parent nodes will be missing.
+Changing the number to >= 4005 will display all nodes and all connections. However, keep in mind that it will take some time
+for neo4j to visualize all this data. During the time it does so, the program will be very laggy and slow. Give it a good 
+couple of minutes before attempting to fullscreen, drag around, zoom in/ out, etc. 
