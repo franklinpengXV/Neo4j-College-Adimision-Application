@@ -1,4 +1,13 @@
-# DS220Project2
+# Neo4j Databse online predictor Application
+This is an Neo4j project developed for DS220.
+
+The Main goal is to develop a application to help student understand their chance of getting in to the top Graduate schools.
+
+The data is anonymized by withdraw the Grad School's name and rank them from top to bottom from 1 to 5 (1 is the best Grad School).
+
+Next Using Html5 + Neo4j to develop the online graph application that, taks user's GPA, GRE Score, TOEFL Score etc. Then track the dataset to find the set of data that have the simliar score to the input and return a predicted Grad School ranking for Student. 
+
+
 Make Sure the Neo4j local browser (localhost:7474) is accessible before using the admission file, 
 The Admission Prediction will allow you to develop and import admission.txt as node and relationship to Neo4j database. 
 then using pycharm to access the rest of code. library include py2neo, Flask, flask_wtf and neo4jrestclient.
